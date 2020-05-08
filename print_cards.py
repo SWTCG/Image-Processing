@@ -10,12 +10,6 @@ def add_bleed(image):
     ppi = long_edge / 3.46457
     bleed_pixels = round(0.125 * ppi)
     im = np.array(image)
-    corners = {
-        'upper-left': im[0, 0, :],
-        'lower-left': im[-1, 0, :],
-        'lower-right': im[-1, -1, :],
-        'upper-right': im[0, -1, :]
-    }
     sides = {
         'top': np.repeat(im[0:1, :, :], bleed_pixels, axis=0),
         'bottom': np.repeat(im[-1:im.shape[0], :, :], bleed_pixels, axis=0)
