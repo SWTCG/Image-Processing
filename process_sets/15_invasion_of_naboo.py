@@ -14,6 +14,3 @@ for filename in os.listdir(in_dir):
             in_dir += "/"
         slice_file(in_dir + filename, out_dir, dim, rows, cols, rev_row=True)
 
-
-class MultiCardImage:
-    pass

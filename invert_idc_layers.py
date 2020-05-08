@@ -114,3 +114,24 @@ def invert_idc_layers(file):
     real_image = invert_opacity(real_image, idc_color, color_opacity)
 
     return Image.fromarray(real_image)
+
+
+def cover_corners(image, dpi=600):
+    # Put black squares on the corners of the image
+    image = np.array(image)
+    scale_ratio = dpi / 600
+    image[:int(75 * scale_ratio), :int(80 * scale_ratio), :] = 0
+    image[int(-90 * scale_ratio):, :int(90 * scale_ratio), :] = 0
+    image[int(-90 * scale_ratio):, int(-90 * scale_ratio):, :] = 0
+    image[:int(80 * scale_ratio), int(-80 * scale_ratio):, :] = 0
+    return Image.fromarray(image)
+
+
+def remove_art_credit(image):
+    if image.width < image.height:
+        image = np.array(image)
+        image[850:1401, -65:, :] = 0
+    else:
+        image = np.array(image)
+        image[-60:, 710:1261, :] = 0
+    return Image.fromarray(image)

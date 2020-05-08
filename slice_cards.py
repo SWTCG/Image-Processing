@@ -1,28 +1,51 @@
 from PIL import Image
 
 
-def slice_file(input_file, output, card_dim, rows, cols, rev_row=False, rev_col=False):
-    filename = input_file[input_file.rfind('/') + 1:]
-    filename = filename[:filename.rfind('.')]
-    im = Image.open(input_file)
-    row_range = range(rows)
-    col_range = range(cols)
-    if rev_row:
-        row_range = list(reversed(row_range))
-    if rev_col:
-        col_range = list(reversed(col_range))
-    if output[:-1] != "/":
-        output += "/"
+class MultiCardImage:
+    def __init__(self, card_dim, rows, cols, start=(0, 0), gap=(0, 0), order='row', rev_row=False, rev_col=False):
+        self.card_dim = card_dim
+        self.rows = rows
+        self.cols = cols
+        self.start = start
+        self.gap = gap
+        self.order = order
+        self.rev_row = rev_row
+        self.rev_col = rev_col
 
-    n = 0
-    for c in col_range:
-        for r in row_range:
-            left = card_dim[0] * c
-            right = card_dim[0] * (c + 1)
-            top = card_dim[1] * r
-            bottom = card_dim[1] * (r + 1)
-            im1 = im.crop((left, top, right, bottom))
+    def slice_file(self, input_file, output):
+        filename = input_file[input_file.rfind('/') + 1:]
+        filename = filename[:filename.rfind('.')]
+        im = Image.open(input_file)
+        row_range = range(self.rows)
+        col_range = range(self.cols)
+        if self.rev_row:
+            row_range = list(reversed(row_range))
+        if self.rev_col:
+            col_range = list(reversed(col_range))
+        if output[:-1] != "/":
+            output += "/"
 
-            n += 1
-            im1.save("{}{}_{}.png".format(output, filename, f'{n:03}'))
-    return None
+        n = 0
+        if self.order == 'col':
+            for c in col_range:
+                for r in row_range:
+                    left = self.start[0] + (self.card_dim[0] + self.gap[0]) * c
+                    right = left + self.card_dim[0]
+                    top = self.start[1] + (self.card_dim[1] + self.gap[1]) * r
+                    bottom = top + self.card_dim[1]
+                    im1 = im.crop((left, top, right, bottom))
+                    n += 1
+                    im1.save("{}{}_{}.png".format(output, filename, f'{n:03}'))
+        elif self.order == 'row':
+            for r in row_range:
+                for c in col_range:
+                    left = self.start[0] + (self.card_dim[0] + self.gap[0]) * c
+                    right = left + self.card_dim[0]
+                    top = self.start[1] + (self.card_dim[1] + self.gap[1]) * r
+                    bottom = top + self.card_dim[1]
+                    im1 = im.crop((left, top, right, bottom))
+                    n += 1
+                    im1.save("{}{}_{}.png".format(output, filename, f'{n:03}'))
+        else:
+            raise Exception("`order` must be 'row' or 'col'")
+        return None
