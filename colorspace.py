@@ -1,5 +1,4 @@
 import numpy as np
-from PIL import Image
 
 
 def rgb_to_hcy(rgb_arr):
@@ -65,73 +64,3 @@ def hcy_to_rgb(hcy_arr):
     rgb_arr[rgb_arr > 255] = 255
     rgb_arr[rgb_arr < 0] = 0
     return rgb_arr.astype('uint8')
-
-
-def invert_opacity(result_image, top_image, opacity):
-    """
-    Inverts the effect of layering an image with opacity < 100% over a second image.
-    :param result_image: numpy array with dimensions (N, M, 3), where N is the image height and M is the width,
-    representing the color values of the layered, visible image.
-    :param top_image: numpy array with dimensions (N, M, 3), where N is the image height and M is the width,
-    representing the color values of the top image at 100% opacity.
-    :param opacity: a float in the range [0, 1) representing the level of opacity of `top_image`
-    :return: numpy array with dimensions (N, M, 3) representing the color values of the bottom image before the top
-    opacity layer was applied
-    """
-    original_image = (result_image - opacity * top_image) / (1 - opacity)
-    original_image = original_image.round()
-    original_image[original_image > 255] = 255
-    original_image[original_image < 0] = 0
-    return original_image.astype('uint8')
-
-
-def invert_idc_layers(image):
-    """
-    Inverts the IDC luminosity and color layers to return the original,
-    untouched image (subject to rounding errors)
-    :param image: PIL Image with IDC luminosity and color layers applied
-    :return: PIL Image with the luminosity and color layers removed.
-    """
-    luminosity_layer = np.array([[[99, 99, 99]]])
-    luminosity_opacity = 0.08
-    color_layer = np.array([[[96, 96, 96]]])
-    color_opacity = 0.26
-
-    visible_image = np.array(image)
-
-    luminosity_layer_hcy = rgb_to_hcy(luminosity_layer)
-    color_layer_hcy = rgb_to_hcy(color_layer)
-
-    idc_luminosity = rgb_to_hcy(visible_image)
-    idc_luminosity[:, :, 2] = luminosity_layer_hcy[:, :, 2]
-    idc_luminosity = hcy_to_rgb(idc_luminosity)
-    real_image = invert_opacity(visible_image, idc_luminosity, luminosity_opacity)
-
-    idc_color = rgb_to_hcy(real_image)
-    idc_color[:, :, 0] = color_layer_hcy[:, :, 0]
-    idc_color[:, :, 1] = color_layer_hcy[:, :, 1]
-    idc_color = hcy_to_rgb(idc_color)
-    real_image = invert_opacity(real_image, idc_color, color_opacity)
-
-    return Image.fromarray(real_image)
-
-
-def cover_corners(image, dpi=600):
-    # Put black squares on the corners of the image
-    image = np.array(image)
-    scale_ratio = dpi / 600
-    image[:int(75 * scale_ratio), :int(80 * scale_ratio), :] = 0
-    image[int(-90 * scale_ratio):, :int(90 * scale_ratio), :] = 0
-    image[int(-90 * scale_ratio):, int(-90 * scale_ratio):, :] = 0
-    image[:int(80 * scale_ratio), int(-80 * scale_ratio):, :] = 0
-    return Image.fromarray(image)
-
-
-def remove_art_credit(image):
-    if image.width < image.height:
-        image = np.array(image)
-        image[850:1401, -65:, :] = 0
-    else:
-        image = np.array(image)
-        image[-60:, 710:1261, :] = 0
-    return Image.fromarray(image)
