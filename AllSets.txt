@@ -1110,7 +1110,7 @@ Vulture Droid Wing	FOTR	Vulture_Droid_Wing	D	Space	Separatist Droid Squadron	6	5
 V-wing Squadron	FOTR	V_wing_Squadron	L	Space	Republic Squadron	4	40	6	4	C	116		This unit gets -1 power for each Separatist unit in the Space arena.	
 Wookiee Flyer	FOTR	Wookiee_Flyer	L	Ground	Wookiee Speeder	3	50	3	2	C	117		Critical Hit 1	
 Wookiee Squad	FOTR	Wookiee_Squad	L	Ground	Wookiee Soldier	4	40	4	3	C	118		Pay 2 Force -> Retaliate 2	
-Wookiee Tactics	FOTR	Wookiee_Tactics	N	Battle						C	119	Text erratum	Choose an arena. Until end of turn, each of your units in that arena gets "Pay 2 Force -> Retaliate X, where X equals the number of Wookiees in this arena."	
+Wookiee Tactics	FOTR	Wookiee_Tactics	L	Battle						C	119	Text erratum	Choose an arena. Until end of turn, each of your units in that arena gets "Pay 2 Force -> Retaliate X, where X equals the number of Wookiees in this arena."
 Wookiee Warrior	FOTR	Wookiee_Warrior	L	Character	Wookiee Soldier	6	40	6	5	C	120		Pay 2 Force -> Retaliate 3	
 Jar Jar Binks (D)	ION	000-jarjarbinksd	L	Character	Gungan Officer	6	30	3	4	R	0		Accuracy -1 | Lucky 2 | At the start of the battle step you may choose one of your opponent's Droids Characters. If you do, Jar Jar may tap and attack it with +5 power. | Discard one of your other Gungans -> Tap one of your opponent's Ground units and put 2 damage counters on it.	
 Accelerate Our Plans	ION	001-accelerateourplans	D	Battle						R	1		Pay X Force -> Choose a partially built Trade Federation Character card in your build zone with a remaining build cost equal to X and put it face up in its arena untapped.	
