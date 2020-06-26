@@ -129,5 +129,5 @@ def gamma_correction(image, gamma=1.22384):
     :return: gamma-corrected PIL Image
     """
     im = np.array(image)
-    im_gamma = 255.0 * np.divide(im, 255.0)**(1 / gamma)
+    im_gamma = 255.0 * np.divide(im, 255.0)**(1.0 / gamma)
     return Image.fromarray(np.uint8(im_gamma))
