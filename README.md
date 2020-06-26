@@ -10,6 +10,6 @@ The `print_cards.py` file contains several functions that perform common print p
 * `cover_corners`: This function covers the rounded corners of the card with black rectangles. Be sure to remove the IDC layers first, if necessary.
 * `remove_art_credit`: A handful of cards in the Legacy of the Force: Smugglers expansion have an artist credit along the card border. If you do not wish to have the artist credit shown, this function will place black rectangles over it. As with the `cover_corners` function, remove IDC layers first before applying.
 * `add_bleed`: This function will add bleed around the edges of the card by extending each side's edge pixels outwards. The default amount of bleed to add is 1/8 inch. 
-* `et_portrait`: This function will rotate cards shown in landscape orientation to portrait and leave portrait cards untouched.
+* `set_portrait`: This function will rotate cards shown in landscape orientation to portrait and leave portrait cards untouched.
 
 See `example.py` for an example of looping through a directory and applying changes to the images.
