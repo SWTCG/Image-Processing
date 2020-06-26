@@ -130,4 +130,4 @@ def gamma_correction(image, gamma=1.22384):
     """
     im = np.array(image)
     im_gamma = 255.0 * np.divide(im, 255.0)**(1 / gamma)
-    return Image.fromarray(im_gamma)
+    return Image.fromarray(np.uint8(im_gamma))
