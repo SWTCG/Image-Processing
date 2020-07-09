@@ -1,3 +1,11 @@
+"""
+Use the pdfimages command in a Linux terminal to extract images from
+PDFs.
+
+Example:
+pdfimages file.pdf -all savename
+"""
+
 from PIL import Image
 
 
