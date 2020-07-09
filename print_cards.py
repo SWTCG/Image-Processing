@@ -115,7 +115,7 @@ def set_portrait(image):
     """
     Rotate image to portrait orientation if it is not portrait already.
     """
-    #if image.height < image.width:
-    return image.transpose(Image.ROTATE_90)
-    #else:
-    #    return image
+    if image.height < image.width:
+        return image.transpose(Image.ROTATE_90)
+    else:
+        return image
