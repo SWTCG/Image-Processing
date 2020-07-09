@@ -53,16 +53,19 @@ def invert_idc_layers(image):
     return Image.fromarray(real_image)
 
 
-def cover_corners(image, long_edge=2100):
+def cover_corners(image):
     """
     Put black squares on the corners of the image.
     :param image: PIL Image with rounded corners
-    :param long_edge: length of the longer edge of the card in pixels. Used for
-    determining the size of the black squares to place over corners.
     :return: PIL Image with covered corners
     """
+    if image.width > image.height:
+        long_edge = image.width
+    else:
+        long_edge = image.height
     image = np.array(image)
     scale_ratio = long_edge / 2100
+
     image[:int(75 * scale_ratio), :int(80 * scale_ratio), :] = 0
     image[int(-90 * scale_ratio):, :int(90 * scale_ratio), :] = 0
     image[int(-90 * scale_ratio):, int(-90 * scale_ratio):, :] = 0
