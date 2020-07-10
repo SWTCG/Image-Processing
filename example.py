@@ -16,11 +16,7 @@ for file in os.listdir(path_to_images):
         image = print_cards.invert_idc_layers(image)
 
         # Cover corners
-        if image.width > image.height:
-            length = image.width
-        else:
-            length = image.height
-        image = print_cards.cover_corners(image, length)
+        image = print_cards.cover_corners(image)
 
         # Remove art credit. This is optional, and to my knowledge this is only
         # applicable for cards from the Legacy of the Force: Smugglers
