@@ -27,6 +27,11 @@ for file in os.listdir(path_to_images):
         # 1/8 inch.
         image = print_cards.add_bleed(image, 0.125)
 
+        # Apply gamma correction. The default gamma correction is 1.22384
+        # and is intended to correct images encoded with gamma=1.8 for viewing
+        # on 2.2 gamma displays.
+        image = print_cards.gamma_correction(image, 1.22384)
+
         # Rotate images so they are in portrait
         image = print_cards.set_portrait(image)
 

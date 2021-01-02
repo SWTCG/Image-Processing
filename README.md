@@ -11,5 +11,6 @@ The `print_cards.py` file contains several functions that perform common print p
 * `remove_art_credit`: A handful of cards in the Legacy of the Force: Smugglers expansion have an artist credit along the card border. If you do not wish to have the artist credit shown, this function will place black rectangles over it. As with the `cover_corners` function, remove IDC layers first before applying.
 * `add_bleed`: This function will add bleed around the edges of the card by extending each side's edge pixels outwards. The default amount of bleed to add is 1/8 inch. 
 * `set_portrait`: This function will rotate cards shown in landscape orientation to portrait and leave portrait cards untouched.
+* `gamma_correction`: This function applies gamma correction to the image. If printing with MakePlayingCards.com, it is recommended to gamma correct card images from Legacy of the Force: Bounty Hunters and later with the default gamma parameter. This will prevent your prints from turning out too dark. 
 
 See `example.py` for an example of looping through a directory and applying changes to the images.

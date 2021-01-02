@@ -75,7 +75,7 @@ def cover_corners(image):
 
 def remove_art_credit(image):
     """
-    Place black rectangle over artist credit
+    Place black rectangle over artist credit.
     """
     if image.width < image.height:
         image = np.array(image)
@@ -119,3 +119,18 @@ def set_portrait(image):
         return image.transpose(Image.ROTATE_90)
     else:
         return image
+
+
+def gamma_correction(image, gamma=1.22384):
+    """
+    Perform gamma correction on input image.
+    :param image: PIL Image to gamma correct
+    :param gamma: gamma correction parameter. The default value is
+    for correcting images designed for 1.8 gamma displays (e.g.
+    legacy Mac OS X displays) to be viewed on 2.2 gamma displays
+    (internet standard).
+    :return: gamma-corrected PIL Image
+    """
+    im = np.array(image)
+    im_gamma = 255.0 * np.divide(im, 255.0)**(1.0 / gamma)
+    return Image.fromarray(np.uint8(im_gamma))
